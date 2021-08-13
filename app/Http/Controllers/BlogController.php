@@ -26,7 +26,12 @@ class BlogController extends Controller {
      */
     public function index() {
         $blogs = Blog::all();
-        return response()->json($blogs);
+        $res = array(
+            'message' => 'List of blogs', 
+            'data' => $blogs, 
+            'status' => 200
+        );
+        return response()->json($res);
     }
     
     /**
@@ -40,7 +45,12 @@ class BlogController extends Controller {
         $blog->name = $request->name;
         $blog->description = $request->description;
         $blog->save();
-        return response()->json($blog);
+        $res = array(
+            'message' => 'Blog post added successfully', 
+            'data' => $blog, 
+            'status' => 200
+        );
+        return response()->json($res);
     }
         
     /**
@@ -51,7 +61,12 @@ class BlogController extends Controller {
      */
     public function show($id) {
         $blog = Blog::find($id);
-        return response()->json($blog);
+        $res = array(
+            'message' => 'Blog post details', 
+            'data' => is_null($blog) ? [] : array($blog), 
+            'status' => 200
+        );
+        return response()->json($res);
     }
         
     /**
@@ -66,7 +81,12 @@ class BlogController extends Controller {
         $blog->name = $request->input('name');
         $blog->description = $request->input('description');
         $blog->save();
-        return response()->json($blog);
+        $res = array(
+            'message' => 'Blog post updated successfully', 
+            'data' => array($blog), 
+            'status' => 200
+        );
+        return response()->json($res);
     }
         
     /**
@@ -78,6 +98,11 @@ class BlogController extends Controller {
     public function destroy($id) {
         $blog = Blog::find($id);
         $blog->delete();
-        return response()->json('blog removed successfully');
+        $res = array(
+            'message' => 'Blog post removed successfully', 
+            'data' => [], 
+            'status' => 200
+        );
+        return response()->json($res);
     }
 }
