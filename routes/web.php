@@ -14,3 +14,11 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+$router->group(['prefix'=>'api/v1'], function() use($router){
+    $router->get('/blogs', 'BlogController@index');
+    $router->post('/blog', 'BlogController@create');
+    $router->get('/blog/{id}', 'BlogController@show');
+    $router->put('/blog/{id}', 'BlogController@update');
+    $router->delete('/blog/{id}', 'BlogController@destroy');
+});
